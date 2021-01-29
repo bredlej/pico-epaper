@@ -1,0 +1,3 @@
+add_library(pico-waveshare_ePaper_1_54in pico-waveshare_ePaper_1_54in.c)
+target_link_libraries(pico-waveshare_ePaper_1_54in pico_stdlib hardware_spi hardware_gpio)
+target_include_directories(pico-waveshare_ePaper_1_54in PUBLIC "${PROJECT_SOURCE_DIR}/include")

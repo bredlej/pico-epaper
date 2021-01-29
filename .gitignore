@@ -1,0 +1,3 @@
+# Project exclude paths
+/cmake-build-debug-muaddib-arm/
+/cmake-build-release-muaddib-arm/
