@@ -72,8 +72,7 @@ void initDevice() {
     stdio_init_all();
     /* Enable SPI at 1MHz*/
     printf("initDevice()\n");
-    sleep_ms(3000);
-    spi_init(SPI_PORT, 1000 * 1000);
+    spi_init(SPI_PORT, 500 * 1000);
     spi_set_format(SPI_PORT, 8, SPI_CPOL_0, SPI_CPHA_0, SPI_MSB_FIRST);
     printf("Initializing SPI\n");
     printf("SPI writable: %d\n", spi_is_writable(SPI_PORT));
@@ -87,15 +86,27 @@ void initDevice() {
     gpio_set_irq_enabled_with_callback(PIN_MISO, GPIO_IRQ_EDGE_RISE | GPIO_IRQ_EDGE_FALL, true, &gpio_callback);
     //    gpio_set_irq_enabled_with_callback(PIN_CLK, GPIO_IRQ_EDGE_RISE | GPIO_IRQ_EDGE_FALL, true, &gpio_callback);
 
-    gpio_set_function(PIN_CLK, GPIO_FUNC_SPI);
     gpio_set_function(PIN_CS, GPIO_FUNC_SPI);
+    gpio_set_function(PIN_CLK, GPIO_FUNC_SPI);
     gpio_set_function(PIN_MISO, GPIO_FUNC_SPI);
     gpio_set_function(PIN_MOSI, GPIO_FUNC_SPI);
 
     // Chip select is active-low, so we'll initialise it to a driven-high state
-    //gpio_init(PIN_CS);
+    gpio_init(PIN_CS);
+    gpio_set_dir(PIN_CS, GPIO_OUT);
+    gpio_put(PIN_CS, 0);
+
+    gpio_init(PIN_DBG);
+    gpio_set_dir(PIN_DBG, GPIO_OUT);
+
     gpio_init(PIN_RESET);
+    gpio_set_dir(PIN_RESET, GPIO_OUT);
+    gpio_put(PIN_RESET, 1);
+
     gpio_init(PIN_DC);
+    gpio_set_dir(PIN_DC, GPIO_OUT);
+    gpio_put(PIN_DC, 0);
+
     gpio_init(PIN_LED);
 
     gpio_set_irq_enabled_with_callback(PIN_MOSI, GPIO_IRQ_EDGE_RISE | GPIO_IRQ_EDGE_FALL, true, &gpio_callback);
@@ -103,13 +114,10 @@ void initDevice() {
      * set also clock and data pin to high level
      */
 
-    gpio_set_dir(PIN_DC, GPIO_OUT);
-    gpio_set_dir(PIN_CS, GPIO_OUT);
     gpio_set_dir(PIN_LED, GPIO_OUT);
-    gpio_set_dir(PIN_RESET, GPIO_OUT);
-    gpio_set_dir(PIN_MISO, GPIO_IN);
+    //gpio_set_dir(PIN_MISO, GPIO_IN);
 
-    gpio_put(PIN_CS, 1);
+
     printf("SPI initialized.\n");
     blink(1, 250);
 }
@@ -137,7 +145,9 @@ void sendData(uint8_t reg) {
     //gpio_put(PIN_CS, 0);
     cs_select();
     gpio_put(PIN_DC, 1);
+    gpio_put(PIN_LED, 1);
     uint8_t bytes = spi_write_blocking(SPI_PORT, &reg, 1);
+    gpio_put(PIN_LED, 0);
     cs_deselect();
 }
 void waitUntilBusy() {
@@ -158,24 +168,19 @@ void turnOnDisplay() {
 }
 
 void initDeviceRegisters() {
-    // blink(2, 250);
-    reset();
-    sleep_ms(500);
-    //  blink(3, 250);
-    waitUntilBusy();
-    //  blink(4, 250);
 
+    reset();
+    waitUntilBusy();
     printf("Software reset\n");
     sendCommand(0x12);// swreset
-    sleep_ms(500);
     waitUntilBusy();
-    //  blink(5, 250);
     printf("Driver output control\n");
     sendCommand(0x01);// driver output control
-    sleep_ms(500);
+    gpio_put(PIN_DBG, 1);
     sendData(0xc7);
     sendData(0x00);
     sendData(0x01);
+    gpio_put(PIN_DBG, 0);
     sleep_ms(500);
     printf("Data entry mode\n");
     sendCommand(0x11);//data entry mode

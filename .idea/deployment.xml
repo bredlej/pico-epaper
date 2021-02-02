@@ -2,13 +2,35 @@
 <project version="4">
   <component name="PublishConfigData" remoteFilesAllowedToDisappearOnAutoupload="false">
     <serverData>
-      <paths name="Muad'Dib (7236852d-37bd-446f-afbb-6711b4adb20c)">
+      <paths name="Leto (30de22f3-2d9d-4fc9-8784-911bb28fb8a2)">
         <serverdata>
           <mappings>
-            <mapping deploy="/tmp/tmp.y13JaH0wjG" local="$PROJECT_DIR$" />
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="MuadDib (1772a672-aad8-476d-a3b6-75489724c143)">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="WSL (a4742748-0cd9-4a70-a920-15f533fb0be3)">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="muaddib-ARM (97ea7eba-3063-4df7-91c9-0739a003abdb)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/tmp/tmp.1cAjS0iGOy" local="$PROJECT_DIR$" />
           </mappings>
           <excludedPaths>
-            <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-debug-muaddib" />
+            <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-release-muaddib-arm" />
+            <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-debug-muaddib-arm" />
           </excludedPaths>
         </serverdata>
       </paths>

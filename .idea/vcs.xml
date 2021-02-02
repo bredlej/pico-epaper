@@ -2,5 +2,7 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/extern/pico-sdk" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/extern/pico-sdk/lib/tinyusb" vcs="Git" />
   </component>
 </project>

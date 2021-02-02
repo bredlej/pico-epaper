@@ -16,6 +16,7 @@
 #define PIN_RESET 8
 #define PIN_DC 9
 #define PIN_LED 25
+#define PIN_DBG 15
 
 #define SPI_PORT spi0
 
