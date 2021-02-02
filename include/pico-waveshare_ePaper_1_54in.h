@@ -9,12 +9,12 @@
 #ifndef PICO_PLAYGROUND_PICO_WAVESHARE_EPAPER_1_54IN_H
 #define PICO_PLAYGROUND_PICO_WAVESHARE_EPAPER_1_54IN_H
 
-#define PIN_DIN 3
-#define PIN_CLK 2
-#define PIN_CS 1
-#define PIN_DC 15
-#define PIN_RST 16
-#define PIN_BUSY 17
+#define PIN_MISO 4
+#define PIN_CS 5
+#define PIN_CLK 6
+#define PIN_MOSI 7
+#define PIN_RESET 8
+#define PIN_DC 9
 #define PIN_LED 25
 
 #define SPI_PORT spi0
